@@ -1,0 +1,19 @@
+name: Spigotify
+version: '${project.version}'
+main: live.mufin.spigotify.Spigotify
+api-version: 1.18
+depend:
+  - PlaceholderAPI
+libraries:
+  - com.squareup.okhttp3:okhttp:4.9.3
+
+commands:
+  setuser:
+    aliases: su
+    description: Sets your Last.fm user.
+    permission: spigotify.setuser
+    usage: /<command> <username>
+  togglevisible:
+    description: Toggles wether people can see your playing song or not.
+    permission: spigotify.togglevisible
+    usage: /<command>
