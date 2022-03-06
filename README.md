@@ -5,7 +5,10 @@ A simple, lightweight, safe way to show your user's Spotify now playing in game!
 ## Installation
 
 1. Install [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/).
-2. Install [Spigotify](https://github.com/mufinlive/spigotify/releases).
+2. Install [Spigotify](https://ci.mufin.live/job/Personal%20Projects/job/Spigotify/lastSuccessfulBuild/)
+
+> *Careful, grab the Spigotify-x.x.jar, not the Spigotify-x.x.jar-with-dependencies*
+
 3. Add both into your plugin folder.
 4. Start your server
 5. [Create a last.fm API key.](#creating-a-lastfm-api-key)
