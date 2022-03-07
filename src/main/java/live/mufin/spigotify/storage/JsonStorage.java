@@ -26,7 +26,11 @@ public class JsonStorage implements IStorage {
   
   @Override
   public List<User> load() throws IOException {
-    Reader reader = Files.newBufferedReader(new File(spigotify.getDataFolder(), FILE_NAME).toPath());
+    File f = new File(spigotify.getDataFolder(), FILE_NAME);
+    if(!f.exists()) {
+      f.createNewFile();
+    }
+    Reader reader = Files.newBufferedReader(f.toPath());
     List<User> users = gson.fromJson(reader, new TypeToken<List<User>>() {
     }.getType());
     reader.close();
