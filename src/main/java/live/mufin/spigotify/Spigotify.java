@@ -1,6 +1,7 @@
 package live.mufin.spigotify;
 
 import live.mufin.spigotify.commands.SetUserCommand;
+import live.mufin.spigotify.commands.SpigotifyCommand;
 import live.mufin.spigotify.commands.ToggleVisibleCommand;
 import live.mufin.spigotify.expansions.SongExpansion;
 import live.mufin.spigotify.storage.IStorage;
@@ -17,7 +18,8 @@ public final class Spigotify extends JavaPlugin {
     this.storage = new JsonStorage(this);
     getCommand("setuser").setExecutor(new SetUserCommand(this));
     getCommand("togglevisible").setExecutor(new ToggleVisibleCommand(this));
-    
+    getCommand("spigotify").setExecutor(new SpigotifyCommand(this));
+
     saveDefaultConfig();
     
     if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") == null) {
@@ -25,7 +27,12 @@ public final class Spigotify extends JavaPlugin {
       Bukkit.getPluginManager().disablePlugin(this);
       return;
     }
-    
+
+    if(getConfig().getString("api-key").equals("API_KEY_HERE")) {
+      getSLF4JLogger().error("You must set a valid API key. Disabling...");
+      Bukkit.getPluginManager().disablePlugin(this);
+    }
+
     new SongExpansion(this).register();
   }
   

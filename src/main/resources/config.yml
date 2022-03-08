@@ -1,1 +1,5 @@
+# Last.fm API key
 api-key: "API_KEY_HERE"
+
+# Interval for fetching the API (in seconds)
+fetch-delay: 5

@@ -6,6 +6,7 @@ depend:
   - PlaceholderAPI
 libraries:
   - com.squareup.okhttp3:okhttp:4.9.3
+  - com.github.ben-manes.caffeine:caffeine:3.0.5
 
 commands:
   setuser:
@@ -16,4 +17,7 @@ commands:
   togglevisible:
     description: Toggles wether people can see your playing song or not.
     permission: spigotify.togglevisible
+    usage: /<command>
+  spigotify:
+    description: Spigotify's main command.
     usage: /<command>

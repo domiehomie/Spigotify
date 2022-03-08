@@ -5,8 +5,8 @@ import java.util.List;
 
 public interface IStorage {
   
-  List<User> load() throws IOException;
+  List<User> load();
   
-  void save(List<User> users) throws IOException;
+  void save(List<User> users);
   
 }

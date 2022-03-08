@@ -4,6 +4,7 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import live.mufin.spigotify.Spigotify;
+import live.mufin.spigotify.SpigotifyException;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,24 +26,34 @@ public class JsonStorage implements IStorage {
   }
   
   @Override
-  public List<User> load() throws IOException {
-    File f = new File(spigotify.getDataFolder(), FILE_NAME);
-    if(!f.exists()) {
-      f.createNewFile();
+  public List<User> load() {
+    try {
+      File f = new File(spigotify.getDataFolder(), FILE_NAME);
+      if (!f.exists()) {
+        if(!f.createNewFile())
+          throw new SpigotifyException("Unable to create users.json file.");
+      }
+      Reader reader = Files.newBufferedReader(f.toPath());
+      List<User> users = gson.fromJson(reader, new TypeToken<List<User>>() {
+      }.getType());
+      reader.close();
+      if (users == null) return new ArrayList<>();
+      return users;
+    } catch (IOException e) {
+      e.printStackTrace();
+      return null;
     }
-    Reader reader = Files.newBufferedReader(f.toPath());
-    List<User> users = gson.fromJson(reader, new TypeToken<List<User>>() {
-    }.getType());
-    reader.close();
-    if (users == null) return new ArrayList<>();
-    return users;
   }
   
   @Override
-  public void save(List<User> users) throws IOException {
-    Writer writer = Files.newBufferedWriter(new File(spigotify.getDataFolder(), FILE_NAME).toPath());
-    this.gson.toJson(users, writer);
-    writer.close();
+  public void save(List<User> users){
+    try {
+      Writer writer = Files.newBufferedWriter(new File(spigotify.getDataFolder(), FILE_NAME).toPath());
+      this.gson.toJson(users, writer);
+      writer.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
   
 }
