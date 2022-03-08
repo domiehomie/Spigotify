@@ -9,8 +9,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-
 public class ToggleVisibleCommand implements CommandExecutor {
 
   private final Spigotify spigotify;
@@ -28,25 +26,24 @@ public class ToggleVisibleCommand implements CommandExecutor {
     }
 
     var users = this.spigotify.storage.load();
-    users
-       .stream()
-       .filter(usr -> usr.getUuid().equals(player.getUniqueId()))
-       .findAny()
-       .ifPresentOrElse(
-          usr -> {
-            users.remove(usr);
-            usr.setVisible(!usr.isVisible());
-            users.add(usr);
-            this.spigotify.storage.save(users);
-            player.sendMessage(
-               Component.text("Successfully toggled your visibility. [" + usr.isVisible() + "]")
-                  .color(TextColor.fromHexString("#44bd32"))
-            );
 
-          }
-          , () -> player.sendMessage(
-             Component.text("You have not set your Last.fm username. Please do so using /setuser <username>.")
-                .color(TextColor.fromHexString("#eb2f06"))));
+    var usr = users.get(player.getUniqueId().toString());
+    if (usr == null) {
+      player.sendMessage(
+         Component.text("You have not set your Last.fm username. Please do so using /setuser <username>.")
+            .color(TextColor.fromHexString("#eb2f06"))
+      );
+      return true;
+    }
+    usr.setVisible(!usr.isVisible());
+    users.put(player.getUniqueId().toString(), usr);
+    this.spigotify.storage.save(users);
+
+    player.sendMessage(
+       Component.text("Successfully toggled your visibility. [" + usr.isVisible() + "]")
+          .color(TextColor.fromHexString("#44bd32"))
+    );
+
 
     return true;
   }

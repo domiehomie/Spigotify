@@ -12,15 +12,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Map;
+import java.util.function.BiConsumer;
 
 
 public class SongExpansion extends PlaceholderExpansion {
@@ -28,24 +25,38 @@ public class SongExpansion extends PlaceholderExpansion {
   public static final MediaType JSON
      = MediaType.get("application/json; charset=utf-8");
   private final OkHttpClient okHttpClient;
+  private final Cache<User, Track> userCache = Caffeine.newBuilder()
+     .build();
   private Spigotify spigotify;
 
-  private Cache<User, Track> userCache = Caffeine.newBuilder()
-     .build();
+  private final BiConsumer<Map<String, User>, Player> fetchPlayer = (Map<String, User> users, Player player) -> {
+    User user = users.get(player.getUniqueId().toString());
+    if (user == null) return;
+    TracksResponse tracks = getSongInfo(user.getLastFmUsername());
+    if (tracks == null ||
+       tracks.getRecenttracks() == null ||
+       tracks.getRecenttracks().getTrack() == null ||
+       tracks.getRecenttracks().getTrack().size() == 0
+    ) {
+      userCache.invalidate(user);
+      return;
+    }
+    this.userCache.put(user, tracks.getRecenttracks().getTrack().get(0));
+  };
+
+  private final Runnable fetcher = () -> {
+    Map<String, User> users = spigotify.storage.load();
+    Bukkit.getOnlinePlayers()
+       .parallelStream()
+       .forEach(player -> Bukkit.getScheduler().runTaskAsynchronously(spigotify, () -> fetchPlayer.accept(users, player)));
+  };
 
   public SongExpansion(Spigotify spigotify) {
     this.spigotify = spigotify;
     this.okHttpClient = new OkHttpClient().newBuilder().build();
 
-    Bukkit.getScheduler().runTaskTimer(spigotify, this.fetcher, 0, 20 * spigotify.getConfig().getInt("fetch-delay"));
+    Bukkit.getScheduler().runTaskTimer(spigotify, this.fetcher, 0, 20L * spigotify.getConfig().getInt("fetch-delay"));
   }
-
-  Runnable fetcher = () -> spigotify.storage
-     .load()
-     .forEach(user -> {
-       if (Bukkit.getPlayer(user.getUuid()) != null)
-         Bukkit.getScheduler().runTaskAsynchronously(spigotify, () -> userCache.put(user, getSongInfo(user.getLastFmUsername()).getRecenttracks().getTrack().get(0)));
-     });
 
   @Override
   public @NotNull String getIdentifier() {
@@ -90,28 +101,27 @@ public class SongExpansion extends PlaceholderExpansion {
 
   @Override
   public @Nullable String onPlaceholderRequest(Player player, @NotNull String params) {
-    Optional<User> userOpt = spigotify.storage
+    User user = spigotify.storage
        .load()
-       .stream()
-       .filter(user -> user.getUuid().equals(player.getUniqueId()))
-       .findAny();
-    if (userOpt.isEmpty()) return "Not Found";
-    User user = userOpt.get();
-    Track track = userCache.getIfPresent(user);
-    if (track == null) return "Not Found";
+       .get(player.getUniqueId().toString());
+    if (user == null) return "Loading...";
 
+    Track track = userCache.getIfPresent(user);
+
+    if (track == null) return "Loading...";
+    if (track.getAttributes() == null) return "Not Playing";
     switch (params) {
       case "song" -> {
-        return track.getAttributes() != null | track.getAttributes().isNowplaying() ? track.getName() : null;
+        return track.getAttributes().isNowplaying() ? track.getName() : null;
       }
       case "artist" -> {
-        return track.getAttributes() != null | track.getAttributes().isNowplaying() ? track.getArtist().getName() : null;
+        return track.getAttributes().isNowplaying() ? track.getArtist().getName() : null;
       }
       case "album" -> {
-        return track.getAttributes() != null | track.getAttributes().isNowplaying() ? track.getAlbum().getName() : null;
+        return track.getAttributes().isNowplaying() ? track.getAlbum().getName() : null;
       }
       default -> {
-        return "Not playing";
+        return null;
       }
     }
 

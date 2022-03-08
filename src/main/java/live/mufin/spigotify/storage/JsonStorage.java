@@ -12,7 +12,9 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JsonStorage implements IStorage {
   
@@ -26,7 +28,7 @@ public class JsonStorage implements IStorage {
   }
   
   @Override
-  public List<User> load() {
+  public Map<String, User> load() {
     try {
       File f = new File(spigotify.getDataFolder(), FILE_NAME);
       if (!f.exists()) {
@@ -34,10 +36,10 @@ public class JsonStorage implements IStorage {
           throw new SpigotifyException("Unable to create users.json file.");
       }
       Reader reader = Files.newBufferedReader(f.toPath());
-      List<User> users = gson.fromJson(reader, new TypeToken<List<User>>() {
+      Map<String, User> users = gson.fromJson(reader, new TypeToken<Map<String, User>>() {
       }.getType());
       reader.close();
-      if (users == null) return new ArrayList<>();
+      if (users == null) return new HashMap<>();
       return users;
     } catch (IOException e) {
       e.printStackTrace();
@@ -46,7 +48,7 @@ public class JsonStorage implements IStorage {
   }
   
   @Override
-  public void save(List<User> users){
+  public void save(Map<String, User> users){
     try {
       Writer writer = Files.newBufferedWriter(new File(spigotify.getDataFolder(), FILE_NAME).toPath());
       this.gson.toJson(users, writer);
