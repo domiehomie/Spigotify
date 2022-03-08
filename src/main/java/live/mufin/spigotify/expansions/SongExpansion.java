@@ -94,7 +94,6 @@ public class SongExpansion extends PlaceholderExpansion {
         return new Gson().fromJson(body, TracksResponse.class);
       }
     } catch (IOException e) {
-      e.printStackTrace();
       return null;
     }
   }
