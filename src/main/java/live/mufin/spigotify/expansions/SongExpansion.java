@@ -6,25 +6,19 @@ import com.google.gson.Gson;
 import live.mufin.spigotify.Spigotify;
 import live.mufin.spigotify.storage.User;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import net.insprill.fetch4j.exception.FetchException;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
+import static net.insprill.fetch4j.Fetch.fetch;
 
 public class SongExpansion extends PlaceholderExpansion {
 
-  public static final MediaType JSON
-     = MediaType.get("application/json; charset=utf-8");
-  private final OkHttpClient okHttpClient;
   private final Cache<User, Track> userCache = Caffeine.newBuilder()
      .build();
   private Spigotify spigotify;
@@ -53,7 +47,6 @@ public class SongExpansion extends PlaceholderExpansion {
 
   public SongExpansion(Spigotify spigotify) {
     this.spigotify = spigotify;
-    this.okHttpClient = new OkHttpClient().newBuilder().build();
 
     Bukkit.getScheduler().runTaskTimer(spigotify, this.fetcher, 0, 20L * spigotify.getConfig().getInt("fetch-delay"));
   }
@@ -79,21 +72,13 @@ public class SongExpansion extends PlaceholderExpansion {
   }
 
   TracksResponse getSongInfo(String username) {
-    Request request = new Request.Builder()
-       .url(
-          "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user="
-             + username +
-             "&api_key="
-             + spigotify.getConfig().getString("api-key") +
-             "&format=json&limit=1"
-       )
-       .build();
     try {
-      try (Response response = okHttpClient.newCall(request).execute()) {
-        String body = response.body().string();
-        return new Gson().fromJson(body, TracksResponse.class);
-      }
-    } catch (IOException e) {
+      String body = fetch(
+              "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=%s&api_key=%s&format=json&limit=1"
+                      .formatted(username, spigotify.getConfig().getString("api-key"))
+      ).getBody();
+      return new Gson().fromJson(body, TracksResponse.class);
+    } catch (FetchException e) {
       return null;
     }
   }
