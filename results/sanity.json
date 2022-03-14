@@ -1,0 +1,65 @@
+{"version":"3","listProblem":[{
+  "tool": "Code Inspection",
+  "category": "General",
+  "type": "Java annotator",
+  "tags": [
+    "JAVA",
+    "Sanity"
+  ],
+  "severity": "Critical",
+  "comment": "'fetch(java.lang.String)' in 'net.insprill.fetch4j.Fetch' cannot be applied to '(?)'",
+  "detailsInfo": "Allows viewing the problems reported by the Java annotator: compilation problems, unresolved by IDEA references, and so on.",
+  "sources": [
+    {
+      "type": "method",
+      "path": "src/main/java/live/mufin/spigotify/expansions/SongExpansion.java",
+      "language": "JAVA",
+      "line": 76,
+      "offset": 25,
+      "length": 1,
+      "code": {
+        "startLine": 74,
+        "length": 1,
+        "offset": 83,
+        "surroundingCode": "  TracksResponse getSongInfo(String username) {\n    try {\n      String body = fetch(\n              \"https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=%s&api_key=%s&format=json&limit=1\"\n                      .formatted(username, spigotify.getConfig().getString(\"api-key\"))\n      ).getBody();"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "Spigotify",
+    "inspectionName": "JavaAnnotator"
+  },
+  "hash": "-29067170596832673"
+},{
+  "tool": "Code Inspection",
+  "category": "General",
+  "type": "Java annotator",
+  "tags": [
+    "JAVA",
+    "Sanity"
+  ],
+  "severity": "Critical",
+  "comment": "Cannot resolve method 'formatted' in 'String'",
+  "detailsInfo": "Allows viewing the problems reported by the Java annotator: compilation problems, unresolved by IDEA references, and so on.",
+  "sources": [
+    {
+      "type": "method",
+      "path": "src/main/java/live/mufin/spigotify/expansions/SongExpansion.java",
+      "language": "JAVA",
+      "line": 78,
+      "offset": 23,
+      "length": 9,
+      "code": {
+        "startLine": 76,
+        "length": 9,
+        "offset": 168,
+        "surroundingCode": "      String body = fetch(\n              \"https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=%s&api_key=%s&format=json&limit=1\"\n                      .formatted(username, spigotify.getConfig().getString(\"api-key\"))\n      ).getBody();\n      return new Gson().fromJson(body, TracksResponse.class);"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "Spigotify",
+    "inspectionName": "JavaAnnotator"
+  },
+  "hash": "4515117845156773302"
+}]}

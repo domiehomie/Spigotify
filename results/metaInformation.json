@@ -1,0 +1,16 @@
+{
+  "total": 9,
+  "tools inspection": {
+    "Code Inspection": 9
+  },
+  "attributes": {
+    "vcs": {
+      "sarifIdea": {
+        "repositoryUri": "https://github.com/mufinlive/Spigotify",
+        "revisionId": "e3b12ac8b9c3ad236a61d8a9761d8d51fed40a3c",
+        "branch": "master"
+      }
+    },
+    "deviceId": "200820300000000-5c02-5197-2d23-b6c0d9094047"
+  }
+}

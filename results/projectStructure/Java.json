@@ -1,0 +1,8 @@
+{
+  "modules": [
+    {
+      "name": "Spigotify",
+      "languageLevel": 16
+    }
+  ]
+}
