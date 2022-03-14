@@ -7,6 +7,134 @@
     "Sanity"
   ],
   "severity": "Critical",
+  "comment": "Cannot resolve symbol 'Bukkit'",
+  "detailsInfo": "Allows viewing the problems reported by the Java annotator: compilation problems, unresolved by IDEA references, and so on.",
+  "sources": [
+    {
+      "type": "method",
+      "path": "src/main/java/live/mufin/spigotify/storage/JsonStorage.java",
+      "language": "JAVA",
+      "line": 57,
+      "offset": 6,
+      "length": 6,
+      "code": {
+        "startLine": 55,
+        "length": 6,
+        "offset": 58,
+        "surroundingCode": "      writer.close();\n    } catch (IOException e) {\n      Bukkit.getConsoleSender().sendMessage(Component.text(\"An exception occured while saving. Message: %s\".formatted(e.getMessage())).color(TextColor.fromHexString(\"#eb2f06\")));\n    }\n  }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "Spigotify",
+    "inspectionName": "JavaAnnotator"
+  },
+  "hash": "-3180031760383367040"
+},{
+  "tool": "Code Inspection",
+  "category": "General",
+  "type": "Java annotator",
+  "tags": [
+    "JAVA",
+    "Sanity"
+  ],
+  "severity": "Critical",
+  "comment": "Cannot resolve method 'getConsoleSender()'",
+  "detailsInfo": "Allows viewing the problems reported by the Java annotator: compilation problems, unresolved by IDEA references, and so on.",
+  "sources": [
+    {
+      "type": "method",
+      "path": "src/main/java/live/mufin/spigotify/storage/JsonStorage.java",
+      "language": "JAVA",
+      "line": 57,
+      "offset": 13,
+      "length": 16,
+      "code": {
+        "startLine": 55,
+        "length": 16,
+        "offset": 65,
+        "surroundingCode": "      writer.close();\n    } catch (IOException e) {\n      Bukkit.getConsoleSender().sendMessage(Component.text(\"An exception occured while saving. Message: %s\".formatted(e.getMessage())).color(TextColor.fromHexString(\"#eb2f06\")));\n    }\n  }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "Spigotify",
+    "inspectionName": "JavaAnnotator"
+  },
+  "hash": "-5326864196873482439"
+},{
+  "tool": "Code Inspection",
+  "category": "General",
+  "type": "Java annotator",
+  "tags": [
+    "JAVA",
+    "Sanity"
+  ],
+  "severity": "Critical",
+  "comment": "Cannot resolve method 'sendMessage(?)'",
+  "detailsInfo": "Allows viewing the problems reported by the Java annotator: compilation problems, unresolved by IDEA references, and so on.",
+  "sources": [
+    {
+      "type": "method",
+      "path": "src/main/java/live/mufin/spigotify/storage/JsonStorage.java",
+      "language": "JAVA",
+      "line": 57,
+      "offset": 32,
+      "length": 11,
+      "code": {
+        "startLine": 55,
+        "length": 11,
+        "offset": 84,
+        "surroundingCode": "      writer.close();\n    } catch (IOException e) {\n      Bukkit.getConsoleSender().sendMessage(Component.text(\"An exception occured while saving. Message: %s\".formatted(e.getMessage())).color(TextColor.fromHexString(\"#eb2f06\")));\n    }\n  }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "Spigotify",
+    "inspectionName": "JavaAnnotator"
+  },
+  "hash": "-3122101834464334138"
+},{
+  "tool": "Code Inspection",
+  "category": "General",
+  "type": "Java annotator",
+  "tags": [
+    "JAVA",
+    "Sanity"
+  ],
+  "severity": "Critical",
+  "comment": "Cannot resolve symbol 'Component'",
+  "detailsInfo": "Allows viewing the problems reported by the Java annotator: compilation problems, unresolved by IDEA references, and so on.",
+  "sources": [
+    {
+      "type": "method",
+      "path": "src/main/java/live/mufin/spigotify/storage/JsonStorage.java",
+      "language": "JAVA",
+      "line": 57,
+      "offset": 44,
+      "length": 9,
+      "code": {
+        "startLine": 55,
+        "length": 9,
+        "offset": 96,
+        "surroundingCode": "      writer.close();\n    } catch (IOException e) {\n      Bukkit.getConsoleSender().sendMessage(Component.text(\"An exception occured while saving. Message: %s\".formatted(e.getMessage())).color(TextColor.fromHexString(\"#eb2f06\")));\n    }\n  }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "Spigotify",
+    "inspectionName": "JavaAnnotator"
+  },
+  "hash": "-8490659412982663537"
+},{
+  "tool": "Code Inspection",
+  "category": "General",
+  "type": "Java annotator",
+  "tags": [
+    "JAVA",
+    "Sanity"
+  ],
+  "severity": "Critical",
   "comment": "'fetch(java.lang.String)' in 'net.insprill.fetch4j.Fetch' cannot be applied to '(?)'",
   "detailsInfo": "Allows viewing the problems reported by the Java annotator: compilation problems, unresolved by IDEA references, and so on.",
   "sources": [
@@ -62,4 +190,132 @@
     "inspectionName": "JavaAnnotator"
   },
   "hash": "4515117845156773302"
+},{
+  "tool": "Code Inspection",
+  "category": "General",
+  "type": "Java annotator",
+  "tags": [
+    "JAVA",
+    "Sanity"
+  ],
+  "severity": "Critical",
+  "comment": "Cannot resolve symbol 'Objects'",
+  "detailsInfo": "Allows viewing the problems reported by the Java annotator: compilation problems, unresolved by IDEA references, and so on.",
+  "sources": [
+    {
+      "type": "method",
+      "path": "src/main/java/live/mufin/spigotify/Spigotify.java",
+      "language": "JAVA",
+      "line": 19,
+      "offset": 4,
+      "length": 7,
+      "code": {
+        "startLine": 17,
+        "length": 7,
+        "offset": 73,
+        "surroundingCode": "  public void onEnable() {\n    this.storage = new JsonStorage(this);\n    Objects.requireNonNull(getCommand(\"setuser\")).setExecutor(new SetUserCommand(this));\n    Objects.requireNonNull(getCommand(\"togglevisible\")).setExecutor(new ToggleVisibleCommand(this));\n    Objects.requireNonNull(getCommand(\"spigotify\")).setExecutor(new SpigotifyCommand(this));"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "Spigotify",
+    "inspectionName": "JavaAnnotator"
+  },
+  "hash": "-1103917705805077753"
+},{
+  "tool": "Code Inspection",
+  "category": "General",
+  "type": "Java annotator",
+  "tags": [
+    "JAVA",
+    "Sanity"
+  ],
+  "severity": "Critical",
+  "comment": "Cannot resolve method 'requireNonNull(org.bukkit.command.@org.jetbrains.annotations.Nullable PluginCommand)'",
+  "detailsInfo": "Allows viewing the problems reported by the Java annotator: compilation problems, unresolved by IDEA references, and so on.",
+  "sources": [
+    {
+      "type": "method",
+      "path": "src/main/java/live/mufin/spigotify/Spigotify.java",
+      "language": "JAVA",
+      "line": 19,
+      "offset": 12,
+      "length": 14,
+      "code": {
+        "startLine": 17,
+        "length": 14,
+        "offset": 81,
+        "surroundingCode": "  public void onEnable() {\n    this.storage = new JsonStorage(this);\n    Objects.requireNonNull(getCommand(\"setuser\")).setExecutor(new SetUserCommand(this));\n    Objects.requireNonNull(getCommand(\"togglevisible\")).setExecutor(new ToggleVisibleCommand(this));\n    Objects.requireNonNull(getCommand(\"spigotify\")).setExecutor(new SpigotifyCommand(this));"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "Spigotify",
+    "inspectionName": "JavaAnnotator"
+  },
+  "hash": "-916407841741830878"
+},{
+  "tool": "Code Inspection",
+  "category": "General",
+  "type": "Java annotator",
+  "tags": [
+    "JAVA",
+    "Sanity"
+  ],
+  "severity": "Critical",
+  "comment": "Cannot resolve method 'setExecutor(live.mufin.spigotify.commands.SetUserCommand)'",
+  "detailsInfo": "Allows viewing the problems reported by the Java annotator: compilation problems, unresolved by IDEA references, and so on.",
+  "sources": [
+    {
+      "type": "method",
+      "path": "src/main/java/live/mufin/spigotify/Spigotify.java",
+      "language": "JAVA",
+      "line": 19,
+      "offset": 50,
+      "length": 11,
+      "code": {
+        "startLine": 17,
+        "length": 11,
+        "offset": 119,
+        "surroundingCode": "  public void onEnable() {\n    this.storage = new JsonStorage(this);\n    Objects.requireNonNull(getCommand(\"setuser\")).setExecutor(new SetUserCommand(this));\n    Objects.requireNonNull(getCommand(\"togglevisible\")).setExecutor(new ToggleVisibleCommand(this));\n    Objects.requireNonNull(getCommand(\"spigotify\")).setExecutor(new SpigotifyCommand(this));"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "Spigotify",
+    "inspectionName": "JavaAnnotator"
+  },
+  "hash": "-6425463498230589444"
+},{
+  "tool": "Code Inspection",
+  "category": "General",
+  "type": "Java annotator",
+  "tags": [
+    "JAVA",
+    "Sanity"
+  ],
+  "severity": "Critical",
+  "comment": "Cannot resolve symbol 'Objects'",
+  "detailsInfo": "Allows viewing the problems reported by the Java annotator: compilation problems, unresolved by IDEA references, and so on.",
+  "sources": [
+    {
+      "type": "method",
+      "path": "src/main/java/live/mufin/spigotify/Spigotify.java",
+      "language": "JAVA",
+      "line": 20,
+      "offset": 4,
+      "length": 7,
+      "code": {
+        "startLine": 18,
+        "length": 7,
+        "offset": 135,
+        "surroundingCode": "    this.storage = new JsonStorage(this);\n    Objects.requireNonNull(getCommand(\"setuser\")).setExecutor(new SetUserCommand(this));\n    Objects.requireNonNull(getCommand(\"togglevisible\")).setExecutor(new ToggleVisibleCommand(this));\n    Objects.requireNonNull(getCommand(\"spigotify\")).setExecutor(new SpigotifyCommand(this));\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "Spigotify",
+    "inspectionName": "JavaAnnotator"
+  },
+  "hash": "-227989009046829634"
 }]}
