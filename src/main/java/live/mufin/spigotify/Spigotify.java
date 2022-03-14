@@ -16,9 +16,9 @@ public final class Spigotify extends JavaPlugin {
   @Override
   public void onEnable() {
     this.storage = new JsonStorage(this);
-    getCommand("setuser").setExecutor(new SetUserCommand(this));
-    getCommand("togglevisible").setExecutor(new ToggleVisibleCommand(this));
-    getCommand("spigotify").setExecutor(new SpigotifyCommand(this));
+    Objects.requireNonNull(getCommand("setuser")).setExecutor(new SetUserCommand(this));
+    Objects.requireNonNull(getCommand("togglevisible")).setExecutor(new ToggleVisibleCommand(this));
+    Objects.requireNonNull(getCommand("spigotify")).setExecutor(new SpigotifyCommand(this));
 
     saveDefaultConfig();
     
@@ -28,7 +28,7 @@ public final class Spigotify extends JavaPlugin {
       return;
     }
 
-    if(getConfig().getString("api-key").equals("API_KEY_HERE")) {
+    if(Objects.requireNonNull(getConfig().getString("api-key")).equals("API_KEY_HERE")) {
       getSLF4JLogger().error("You must set a valid API key. Disabling...");
       Bukkit.getPluginManager().disablePlugin(this);
     }

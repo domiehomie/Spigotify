@@ -42,7 +42,7 @@ public class JsonStorage implements IStorage {
       if (users == null) return new HashMap<>();
       return users;
     } catch (IOException e) {
-      e.printStackTrace();
+      Bukkit.getConsoleSender().sendMessage(Component.text("An exception occured while loading. Message: %s".formatted(e.getMessage())).color(TextColor.fromHexString("#eb2f06")));
       return null;
     }
   }
@@ -54,7 +54,7 @@ public class JsonStorage implements IStorage {
       this.gson.toJson(users, writer);
       writer.close();
     } catch (IOException e) {
-      e.printStackTrace();
+      Bukkit.getConsoleSender().sendMessage(Component.text("An exception occured while saving. Message: %s".formatted(e.getMessage())).color(TextColor.fromHexString("#eb2f06")));
     }
   }
   
