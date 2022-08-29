@@ -5,15 +5,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import live.mufin.spigotify.Spigotify;
 import live.mufin.spigotify.SpigotifyException;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.Bukkit;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class JsonStorage implements IStorage {
